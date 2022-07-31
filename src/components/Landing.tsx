@@ -3,36 +3,34 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { fetchTopAlbums } from '../utils/queries/fetchAlbums';
 import AlbumController from './Albums/AlbumController';
+import ArtistsController from './Artists/ArtistsController';
 import Sidebar from './Sidebar/Sidebar';
-
+import { atom, useAtom } from 'jotai';
+import { optionAtom } from '../utils/store';
+import SongsController from './Songs/SongsController';
 type Props = {};
 
 function Landing({}: Props) {
   const queryClient = useQueryClient();
 
-  const [timeFilter, setTimeFilter] = useState({
-    period: 'overall',
-    name: 'all time',
-  });
-  const { isLoading, isError, data, error } = useQuery(
-    ['albums', timeFilter],
-    () => fetchTopAlbums(5, 'parth_m', timeFilter?.period)
-  );
+  const [option] = useAtom(optionAtom);
 
-  if (isError) {
-    return null;
-  }
+  const charts = () => {
+    if (option === 'albums') {
+      return <AlbumController />;
+    }
+    if (option === 'artists') {
+      return <ArtistsController />;
+    }
+    if (option === 'songs') {
+      return <SongsController />;
+    }
+  };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className='flex justify-center items-center text-white  w-screen h-screen '>
       <Sidebar />
-      <div className='flex flex-row w-9/12 ml-10'>
-        {/* <Albums /> */}
-        <AlbumController />
-      </div>
+      <div className='flex flex-row w-9/12 ml-10'>{charts()}</div>
     </div>
   );
 }

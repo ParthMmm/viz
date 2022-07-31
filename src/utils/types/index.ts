@@ -1,16 +1,16 @@
 import { useEffect, Fragment, useState, Dispatch, SetStateAction } from 'react';
 
-type album = {
+export type album = {
   name: string;
   playcount: number;
 };
 
-type options = {
+export type options = {
   period: string;
   name: string;
 };
 
-type FilterProps = {
+export type PeriodFilterProps = {
   timeFilter: options;
   setTimeFilter: Dispatch<
     SetStateAction<{
@@ -20,4 +20,12 @@ type FilterProps = {
   >;
 };
 
-export type { album, options, FilterProps };
+export type LimitFilterProps = {
+  limitFilter: number;
+  setLimitFilter: Dispatch<SetStateAction<number>>;
+};
+
+export type AlbumFilterProps = {
+  timeFilter: options;
+  limitFilter: number;
+};

@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import Albums from './Albums';
 import PeriodFilter from '../Filters/PeriodFilter';
 import LimitFilter from '../Filters/LimitFilter';
-
+import Artists from './Artists';
 type Props = {};
 
-function AlbumController({}: Props) {
+function ArtistsController({}: Props) {
   const [timeFilter, setTimeFilter] = useState({
     period: 'overall',
     name: 'all time',
@@ -24,9 +23,9 @@ function AlbumController({}: Props) {
         />
       </div>
 
-      <Albums timeFilter={timeFilter} limitFilter={limitFilter} />
+      <Artists timeFilter={timeFilter} limitFilter={limitFilter} />
     </div>
   );
 }
 
-export default AlbumController;
+export default ArtistsController;

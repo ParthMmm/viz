@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { FilterProps } from '../../utils/types';
+import { AlbumFilterProps } from '../../utils/types';
 
 ChartJS.register(
   CategoryScale,
@@ -42,12 +42,12 @@ export const barOptions = {
   },
 };
 
-function Albums({ timeFilter }: Pick<FilterProps, 'timeFilter'>) {
+function Albums({ timeFilter, limitFilter }: AlbumFilterProps) {
   const queryClient = useQueryClient();
 
   const { isLoading, isError, data, error } = useQuery(
-    ['albums', timeFilter],
-    () => fetchTopAlbums(5, 'parth_m', timeFilter?.period)
+    ['albums', timeFilter, limitFilter],
+    () => fetchTopAlbums(limitFilter, 'parth_m', timeFilter?.period)
   );
 
   if (isError) {
