@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchTopAlbums } from '../../utils/queries/fetchAlbums';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,7 +12,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { AlbumFilterProps } from '../../utils/types';
-import { fetchTopArtists } from '../../utils/queries/fetchArtists';
+import { fetchTopTracks } from '../../utils/queries/';
 
 ChartJS.register(
   CategoryScale,
@@ -38,17 +37,17 @@ export const barOptions = {
     },
     title: {
       display: true,
-      text: 'Top Artists Playcount',
+      text: 'Top Tracks Playcount',
     },
   },
 };
 
-function Artists({ timeFilter, limitFilter }: AlbumFilterProps) {
+function Tracks({ timeFilter, limitFilter }: AlbumFilterProps) {
   const queryClient = useQueryClient();
 
   const { isLoading, isError, data, error } = useQuery(
-    ['artists', timeFilter, limitFilter],
-    () => fetchTopArtists(limitFilter, 'parth_m', timeFilter?.period)
+    ['tracks', timeFilter, limitFilter],
+    () => fetchTopTracks(limitFilter, 'parth_m', timeFilter?.period)
   );
 
   if (isError) {
@@ -59,15 +58,15 @@ function Artists({ timeFilter, limitFilter }: AlbumFilterProps) {
     return <div>Loading...</div>;
   }
 
-  let labels: string[] = data.artist.map(
-    (artist: { name: any; playcount: any }) => {
-      return artist.name;
+  let labels: string[] = data.track.map(
+    (track: { name: any; playcount: any }) => {
+      return track.name;
     }
   );
 
-  let playcounts: string[] = data.artist.map(
-    (artist: { name: any; playcount: any }) => {
-      return parseInt(artist.playcount);
+  let playcounts: string[] = data.track.map(
+    (track: { name: any; playcount: any }) => {
+      return parseInt(track.playcount);
     }
   );
 
@@ -92,4 +91,4 @@ function Artists({ timeFilter, limitFilter }: AlbumFilterProps) {
   );
 }
 
-export default Artists;
+export default Tracks;

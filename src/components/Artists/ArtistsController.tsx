@@ -1,31 +1,32 @@
-import { useState } from 'react';
-import PeriodFilter from '../Filters/PeriodFilter';
-import LimitFilter from '../Filters/LimitFilter';
-import Artists from './Artists';
-type Props = {};
+// import { useState } from 'react';
+// import PeriodFilter from '../Filters/PeriodFilter';
+// import LimitFilter from '../Filters/LimitFilter';
+// import Artists from './Artists';
 
-function ArtistsController({}: Props) {
-  const [timeFilter, setTimeFilter] = useState({
-    period: 'overall',
-    name: 'all time',
-  });
+// type Props = {};
 
-  const [limitFilter, setLimitFilter] = useState(5);
+// function ArtistsController({}: Props) {
+//   const [timeFilter, setTimeFilter] = useState({
+//     period: 'overall',
+//     name: 'all time',
+//   });
 
-  return (
-    <div className='w-full'>
-      <div className='flex flex-row'>
-        {' '}
-        <PeriodFilter timeFilter={timeFilter} setTimeFilter={setTimeFilter} />
-        <LimitFilter
-          limitFilter={limitFilter}
-          setLimitFilter={setLimitFilter}
-        />
-      </div>
+//   const [limitFilter, setLimitFilter] = useState(5);
 
-      <Artists timeFilter={timeFilter} limitFilter={limitFilter} />
-    </div>
-  );
-}
+//   return (
+//     <div className='w-full'>
+//       <div className='flex flex-row'>
+//         {' '}
+//         <PeriodFilter timeFilter={timeFilter} setTimeFilter={setTimeFilter} />
+//         <LimitFilter
+//           limitFilter={limitFilter}
+//           setLimitFilter={setLimitFilter}
+//         />
+//       </div>
 
-export default ArtistsController;
+//       <Artists timeFilter={timeFilter} limitFilter={limitFilter} />
+//     </div>
+//   );
+// }
+
+// export default ArtistsController;

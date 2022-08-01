@@ -5,10 +5,11 @@ async function fetchTopAlbums(limit: number, userID: string, period: string) {
   const response = await axios.get(
     getTopAlbumsFetch +
       `&user=${userID}` +
-      `&limit=${limit} + &period=${period}`
+      `&limit=${limit}` +
+      `&period=${period}`
   );
 
   return response.data.topalbums;
 }
 
-export { fetchTopAlbums };
+export default fetchTopAlbums;

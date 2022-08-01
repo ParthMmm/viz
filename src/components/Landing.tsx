@@ -7,30 +7,57 @@ import ArtistsController from './Artists/ArtistsController';
 import Sidebar from './Sidebar/Sidebar';
 import { atom, useAtom } from 'jotai';
 import { optionAtom } from '../utils/store';
-import SongsController from './Songs/SongsController';
+import SongsController from './Tracks/SongsController';
+
+import { PeriodFilter, LimitFilter } from './Filters/';
+import Albums from './Albums/Albums';
+import Artists from './Artists/Artists';
+import Tracks from './Tracks/Tracks';
+
 type Props = {};
 
 function Landing({}: Props) {
   const queryClient = useQueryClient();
+  const [timeFilter, setTimeFilter] = useState({
+    period: 'overall',
+    name: 'all time',
+  });
+
+  const [limitFilter, setLimitFilter] = useState(5);
 
   const [option] = useAtom(optionAtom);
 
   const charts = () => {
     if (option === 'albums') {
-      return <AlbumController />;
+      return <Albums timeFilter={timeFilter} limitFilter={limitFilter} />;
     }
     if (option === 'artists') {
-      return <ArtistsController />;
+      return <Artists timeFilter={timeFilter} limitFilter={limitFilter} />;
     }
     if (option === 'songs') {
-      return <SongsController />;
+      return <Tracks timeFilter={timeFilter} limitFilter={limitFilter} />;
     }
   };
 
   return (
     <div className='flex justify-center items-center text-white  w-screen h-screen '>
       <Sidebar />
-      <div className='flex flex-row w-9/12 ml-10'>{charts()}</div>
+      <div className='flex flex-row w-9/12 ml-10'>
+        <div className='w-full'>
+          <div className='flex flex-row'>
+            {' '}
+            <PeriodFilter
+              timeFilter={timeFilter}
+              setTimeFilter={setTimeFilter}
+            />
+            <LimitFilter
+              limitFilter={limitFilter}
+              setLimitFilter={setLimitFilter}
+            />
+          </div>
+          {charts()}
+        </div>
+      </div>
     </div>
   );
 }
