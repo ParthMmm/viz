@@ -1,18 +1,16 @@
 import NewAlbums from './Albums/Albums';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { fetchTopAlbums } from '../utils/queries/fetchAlbums';
-import AlbumController from './Albums/AlbumController';
-import ArtistsController from './Artists/ArtistsController';
+
 import Sidebar from './Sidebar/Sidebar';
 import { atom, useAtom } from 'jotai';
 import { optionAtom } from '../utils/store';
-import SongsController from './Tracks/SongsController';
 
 import { PeriodFilter, LimitFilter } from './Filters/';
 import Albums from './Albums/Albums';
 import Artists from './Artists/Artists';
 import Tracks from './Tracks/Tracks';
+import UserInput from './UserInput';
 
 type Props = {};
 
@@ -26,6 +24,8 @@ function Landing({}: Props) {
   const [limitFilter, setLimitFilter] = useState(5);
 
   const [option] = useAtom(optionAtom);
+
+  console.log(option);
 
   const charts = () => {
     if (option === 'albums') {
@@ -42,8 +42,9 @@ function Landing({}: Props) {
   return (
     <div className='flex justify-center items-center text-white  w-screen h-screen '>
       <Sidebar />
-      <div className='flex flex-row w-9/12 ml-10'>
-        <div className='w-full'>
+      <div className='w-9/12 ml-10'>
+        <div className='fixed w-[80%] top-0 mt-48'>
+          <UserInput />
           <div className='flex flex-row'>
             {' '}
             <PeriodFilter

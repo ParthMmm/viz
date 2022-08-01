@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchTopAlbums } from '../../utils/queries/fetchAlbums';
+import { fetchTopAlbums } from '../../utils/queries';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +13,9 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { AlbumFilterProps } from '../../utils/types';
+import { userAtom } from '../../utils/store';
+import { useAtom } from 'jotai';
+import Spinner from '../Spinner';
 
 ChartJS.register(
   CategoryScale,
@@ -44,18 +47,19 @@ export const barOptions = {
 
 function Albums({ timeFilter, limitFilter }: AlbumFilterProps) {
   const queryClient = useQueryClient();
+  const [user] = useAtom(userAtom);
 
   const { isLoading, isError, data, error } = useQuery(
-    ['albums', timeFilter, limitFilter],
-    () => fetchTopAlbums(limitFilter, 'parth_m', timeFilter?.period)
+    ['albums', timeFilter, limitFilter, user],
+    () => fetchTopAlbums(limitFilter, user, timeFilter?.period)
   );
 
   if (isError) {
-    return <div></div>;
+    return <div className='flex flex-col w-full'></div>;
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   let labels: string[] = data.album.map(
@@ -84,7 +88,7 @@ function Albums({ timeFilter, limitFilter }: AlbumFilterProps) {
 
   return (
     <>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-3/4'>
         <Bar options={barOptions} data={dataSet} />{' '}
       </div>
     </>

@@ -17,7 +17,7 @@ function useBoop({
   },
 }) {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [isBooped, setIsBooped] = React.useState(false);
+  const [isBooped, setIsBooped] = useState(false);
   const style = useSpring({
     transform: isBooped
       ? `translate(${x}px, ${y}px)

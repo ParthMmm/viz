@@ -13,6 +13,9 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { AlbumFilterProps } from '../../utils/types';
 import { fetchTopTracks } from '../../utils/queries/';
+import { userAtom } from '../../utils/store';
+import { useAtom } from 'jotai';
+import Spinner from '../Spinner';
 
 ChartJS.register(
   CategoryScale,
@@ -44,18 +47,23 @@ export const barOptions = {
 
 function Tracks({ timeFilter, limitFilter }: AlbumFilterProps) {
   const queryClient = useQueryClient();
+  const [user] = useAtom(userAtom);
 
   const { isLoading, isError, data, error } = useQuery(
-    ['tracks', timeFilter, limitFilter],
-    () => fetchTopTracks(limitFilter, 'parth_m', timeFilter?.period)
+    ['tracks', timeFilter, limitFilter, user],
+    () => fetchTopTracks(limitFilter, user, timeFilter?.period)
   );
 
   if (isError) {
-    return <div></div>;
+    return (
+      <div className='flex flex-col w-full'>
+        <div className='block'></div>
+      </div>
+    );
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   let labels: string[] = data.track.map(
@@ -84,7 +92,7 @@ function Tracks({ timeFilter, limitFilter }: AlbumFilterProps) {
 
   return (
     <>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-3/4'>
         <Bar options={barOptions} data={dataSet} />{' '}
       </div>
     </>
