@@ -1,3 +1,14 @@
-# Create T3 App
+# Last.fm Visualizer
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
+Visualize your Last.fm scrobbles.
+
+## Built With
+
+- React
+- Next.js
+- TailwindCSS
+- React-Spring
+- React Query
+- Jotai
+
+
