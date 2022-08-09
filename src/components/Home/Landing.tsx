@@ -1,16 +1,17 @@
-import NewAlbums from './Albums/Albums';
+import NewAlbums from '../Albums/Albums';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from '../Sidebar/Sidebar';
 import { atom, useAtom } from 'jotai';
-import { optionAtom } from '../utils/store';
+import { optionAtom } from '../../utils/store';
 
-import { PeriodFilter, LimitFilter } from './Filters/';
-import Albums from './Albums/Albums';
-import Artists from './Artists/Artists';
-import Tracks from './Tracks/Tracks';
-import UserInput from './UserInput';
+import { PeriodFilter, LimitFilter } from '../Filters';
+import Albums from '../Albums/Albums';
+import Artists from '../Artists/Artists';
+import Tracks from '../Tracks/Tracks';
+import UserInput from '../UserInput';
+import Header from '../Header';
 
 type Props = {};
 
@@ -25,8 +26,6 @@ function Landing({}: Props) {
 
   const [option] = useAtom(optionAtom);
 
-  console.log(option);
-
   const charts = () => {
     if (option === 'albums') {
       return <Albums timeFilter={timeFilter} limitFilter={limitFilter} />;
@@ -40,23 +39,27 @@ function Landing({}: Props) {
   };
 
   return (
-    <div className='flex justify-center items-center text-white  w-screen h-screen '>
-      <Sidebar />
-      <div className='w-9/12 ml-10'>
-        <div className='fixed w-[80%] top-0 mt-48'>
-          <UserInput />
-          <div className='flex flex-row'>
-            {' '}
-            <PeriodFilter
-              timeFilter={timeFilter}
-              setTimeFilter={setTimeFilter}
-            />
-            <LimitFilter
-              limitFilter={limitFilter}
-              setLimitFilter={setLimitFilter}
-            />
+    <div>
+      {' '}
+      <Header />
+      <div className='flex justify-center items-center text-white  w-screen h-screen '>
+        <Sidebar />
+        <div className='w-9/12 ml-10'>
+          <div className='fixed w-[80%] top-0 mt-48'>
+            <UserInput />
+            <div className='flex flex-row'>
+              {' '}
+              <PeriodFilter
+                timeFilter={timeFilter}
+                setTimeFilter={setTimeFilter}
+              />
+              <LimitFilter
+                limitFilter={limitFilter}
+                setLimitFilter={setLimitFilter}
+              />
+            </div>
+            {charts()}
           </div>
-          {charts()}
         </div>
       </div>
     </div>

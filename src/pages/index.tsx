@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Landing from '../components/Landing';
 
+import Main from 'components/Main';
 const Home: NextPage = () => {
   return (
     <>
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
       <main>
         <div className='fixed bg-[#fcfcfc] dark:bg-[#2c2d2f] transition-all duration-700 ease-in-out  h-screen z-[10] w-screen'>
-          <Landing />
+          <Main />
         </div>
       </main>
     </>
