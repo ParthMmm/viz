@@ -36,11 +36,32 @@ export const barOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right' as const,
+      position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Top Tracks Playcount',
+      text: 'Top Songs',
+      font: {
+        size: 24,
+        weight: '800',
+      },
+      color: '#fff',
+    },
+  },
+  scales: {
+    yAxes: {
+      ticks: {
+        color: '#fff',
+      },
+    },
+    xAxes: {
+      ticks: {
+        color: '#fff',
+      },
+      grid: {
+        display: true,
+        zeroLineColor: 'transparent',
+      },
     },
   },
 };
@@ -82,17 +103,17 @@ function Tracks({ timeFilter, limitFilter }: AlbumFilterProps) {
     labels,
     datasets: [
       {
-        label: timeFilter.name,
+        label: timeFilter.name + ' plays',
         data: playcounts,
-        borderColor: '#d1baf1',
-        backgroundColor: '#d1baf1',
+        borderColor: '#fff',
+        backgroundColor: '#fff',
       },
     ],
   };
 
   return (
     <>
-      <div className='flex flex-col w-3/4'>
+      <div className='flex flex-col '>
         <Bar options={barOptions} data={dataSet} />{' '}
       </div>
     </>

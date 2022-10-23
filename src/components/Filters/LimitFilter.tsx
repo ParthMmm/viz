@@ -12,7 +12,7 @@ function LimitFilter({ limitFilter, setLimitFilter }: LimitFilterProps) {
     <div className='w-1/4'>
       <Listbox value={limitFilter} onChange={setLimitFilter}>
         <div className='relative mt-1 '>
-          <Listbox.Button className='relative w-3/4  cursor-default rounded-lg text-purple-200 py-2 pl-3 pr-10 text-left shadow-md sm:text-sm'>
+          <Listbox.Button className='relative w-3/4  cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md sm:text-sm bg-gblack '>
             <span className='block truncate font-bold'>{limitFilter}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <SelectorIcon

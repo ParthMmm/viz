@@ -12,7 +12,7 @@ function UserInput({}: Props) {
         value={user}
         type='text'
         placeholder='last.fm username'
-        className='relative w-1/4 bg-gblack  cursor-default rounded-lg text-purple-200 py-2 pl-3 pr-10 text-left border-none shadow-md sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-200'
+        className='flex  bg-gblack  cursor-default rounded-lg  font-semibold py-2 pl-3 md:pr-10 text-left border-none shadow-md sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-200'
       ></input>
     </div>
   );

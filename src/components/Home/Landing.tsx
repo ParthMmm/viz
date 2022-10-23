@@ -11,7 +11,8 @@ import Albums from '../Albums/Albums';
 import Artists from '../Artists/Artists';
 import Tracks from '../Tracks/Tracks';
 import UserInput from '../UserInput';
-import Header from '../Header';
+import Header from '../Navbar';
+import Navbar from '../Navbar';
 
 type Props = {};
 
@@ -40,26 +41,25 @@ function Landing({}: Props) {
 
   return (
     <div>
-      {' '}
-      <Header />
-      <div className='flex justify-center items-center text-white  w-screen h-screen '>
-        <Sidebar />
-        <div className='w-9/12 ml-10'>
-          <div className='fixed w-[80%] top-0 mt-48'>
+      <Navbar />
+      <div className='flex justify-center items-center align-middle text-white w-full '>
+        <div className=' w-[95%] md:w-3/4 top-0 mt-12 '>
+          <div className='flex flex-row items-center justify-start  align-middle'>
             <UserInput />
-            <div className='flex flex-row'>
-              {' '}
-              <PeriodFilter
-                timeFilter={timeFilter}
-                setTimeFilter={setTimeFilter}
-              />
-              <LimitFilter
-                limitFilter={limitFilter}
-                setLimitFilter={setLimitFilter}
-              />
-            </div>
-            {charts()}
+            <Sidebar />
           </div>
+
+          <div className='flex  md:flex-row mb-4 '>
+            <PeriodFilter
+              timeFilter={timeFilter}
+              setTimeFilter={setTimeFilter}
+            />
+            <LimitFilter
+              limitFilter={limitFilter}
+              setLimitFilter={setLimitFilter}
+            />
+          </div>
+          {charts()}
         </div>
       </div>
     </div>

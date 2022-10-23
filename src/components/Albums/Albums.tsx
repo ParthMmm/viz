@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Chart } from 'react-chartjs-2';
 import { AlbumFilterProps } from '../../utils/types';
 import { userAtom } from '../../utils/store';
 import { useAtom } from 'jotai';
@@ -26,6 +26,14 @@ ChartJS.register(
   Legend
 );
 
+type Album = {
+  name: string;
+  artist: string;
+  image: string;
+  url: string;
+  playcount: string;
+};
+
 export const barOptions = {
   indexAxis: 'y' as const,
   elements: {
@@ -36,11 +44,32 @@ export const barOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right' as const,
+      position: 'top' as const,
     },
     title: {
       display: true,
       text: 'Top Album Playcount',
+      font: {
+        size: 24,
+        weight: '800',
+      },
+      color: '#fff',
+    },
+  },
+  scales: {
+    yAxes: {
+      ticks: {
+        color: '#fff',
+      },
+    },
+    xAxes: {
+      ticks: {
+        color: '#fff',
+      },
+      grid: {
+        display: true,
+        zeroLineColor: 'transparent',
+      },
     },
   },
 };
@@ -62,33 +91,30 @@ function Albums({ timeFilter, limitFilter }: AlbumFilterProps) {
     return <Spinner />;
   }
 
-  let labels: string[] = data.album.map(
-    (album: { name: any; playcount: any }) => {
-      return album.name;
-    }
-  );
+  let labels: string[] = data.album.map((album: Album) => {
+    console.log(album);
+    return album.name;
+  });
 
-  let playcounts: string[] = data.album.map(
-    (album: { name: any; playcount: any }) => {
-      return parseInt(album.playcount);
-    }
-  );
+  let playcounts: string[] = data.album.map((album: Album) => {
+    return parseInt(album.playcount);
+  });
 
   const dataSet = {
     labels,
     datasets: [
       {
-        label: timeFilter.name,
+        label: `${timeFilter.name}`,
         data: playcounts,
-        borderColor: '#d1baf1',
-        backgroundColor: '#d1baf1',
+        borderColor: '#fff',
+        backgroundColor: '#ffff',
       },
     ],
   };
 
   return (
     <>
-      <div className='flex flex-col w-3/4'>
+      <div className='flex flex-col  '>
         <Bar options={barOptions} data={dataSet} />{' '}
       </div>
     </>

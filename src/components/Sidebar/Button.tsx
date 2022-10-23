@@ -39,7 +39,7 @@ function Button({ name }: Props) {
       <button
         className={`${
           flag ? 'text-purple-500 hover:text-purple-900' : 'text-white'
-        }  hover:bg-[#e3cfff] w-full h-12  hover:text-black text-md `}
+        }   w-full h-12  hover:text-purple-700 text-md `}
         onClick={() => handleClick()}
       >
         <animated.div
